@@ -1,10 +1,11 @@
 from pydantic import BaseModel
-from typing import List
+from fastapi import Form
+from typing import List, Optional
 
 
 # data model for adding todo
 class Todo(BaseModel):
-    id : int
+    id : Optional[int]
     item : str
 
     # sample schema for doc
@@ -16,6 +17,9 @@ class Todo(BaseModel):
             }
         }
 
+    @classmethod
+    def as_form(cls, item:str=Form(...), id: Optional[int] = None):
+        return cls(id=id, item=item)
 
 # task model for todo
 class TodoItem(BaseModel):

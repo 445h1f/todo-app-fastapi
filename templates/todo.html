@@ -1,0 +1,42 @@
+{% extends "home.html" %}
+
+{% block todo_container %}
+{% if not hide_form %}
+<section>
+  <form method="post">
+    <div class="mb-3">
+      <label for="item" class="form-label"><strong>Add a todo</strong></label>
+      <div class="input-group">
+        <input type="text" name="item" value="{{ item }}" class="form-control" id="item" placeholder="Purchase Bitcoin"
+          aria-describedby="button-addon2" required />
+        <button class="btn btn-primary" type="submit" id="button-addon2">
+          Add Todo
+        </button>
+      </div>
+    </div>
+  </form>
+</section>
+{% endif %}
+{% if todo %}
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">Todo ID: {{ todo.id }}</h5>
+    <p class="card-text"><strong>Item:</strong> {{ todo.item }}</p>
+  </div>
+</div>
+{% elif todos %}
+<section>
+  <h2 align="center">Todos</h2>
+  <br>
+  <div class="card">
+    <ul class="list-group list-group-flush">
+      {% for todo in todos %}
+      <li class="list-group-item">
+        {{ loop.index }}. <a href="/todo/{{ loop.index }}"> {{ todo.item }} </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% endif %}
+{% endblock %}
